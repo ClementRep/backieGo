@@ -1,6 +1,7 @@
 package com.example.user_service.Model;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 
 @Entity
 @Table(name = "users")
@@ -8,6 +9,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Works with SQLite
     private Long id;
+
     private String name;
     private String email;
     private String password;

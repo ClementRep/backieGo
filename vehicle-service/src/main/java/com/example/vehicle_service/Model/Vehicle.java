@@ -14,17 +14,14 @@ public class Vehicle {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    @NotBlank
     private String ownerId;
-
     @NotBlank
     private String make;
-
     @NotBlank
     private String model;
-
-    private String year;
-
+    @NotBlank
+    private String Manufacturedyear;
     @NotBlank
     private String licensePlate;
 }

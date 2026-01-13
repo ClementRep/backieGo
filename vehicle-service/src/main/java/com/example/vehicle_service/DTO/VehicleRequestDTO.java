@@ -7,15 +7,12 @@ import org.apache.logging.log4j.core.config.plugins.validation.constraints.NotBl
 public class VehicleRequestDTO {
     @NotBlank
     private String ownerId;
-
     @NotBlank
     private String make;
-
     @NotBlank
     private String model;
-
-    private String year;
-
+    @NotBlank
+    private String Manufactureyear;
     @NotBlank
     private String licensePlate;
 }

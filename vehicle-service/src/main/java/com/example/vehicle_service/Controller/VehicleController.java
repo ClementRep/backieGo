@@ -1,4 +1,4 @@
-package com.rentmycar.controller;
+package com.example.vehicle_service.Controller;
 
 import com.example.vehicle_service.DTO.VehicleRequestDTO;
 import com.example.vehicle_service.DTO.VehicleResponseDTO;
@@ -10,18 +10,18 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/vehicles")
 @RequiredArgsConstructor
+@RequestMapping("/Vehicle")
 public class VehicleController {
 
     private final VehicleService vehicleService;
 
-    @PostMapping
+    @PostMapping("/api/vehicles")
     public ResponseEntity<VehicleResponseDTO> register(@RequestBody VehicleRequestDTO request) {
         return ResponseEntity.ok(vehicleService.registerVehicle(request));
     }
 
-    @GetMapping
+    @GetMapping("api/getvehicles")
     public ResponseEntity<List<VehicleResponseDTO>> getAll() {
         return ResponseEntity.ok(vehicleService.getAllVehicles());
     }

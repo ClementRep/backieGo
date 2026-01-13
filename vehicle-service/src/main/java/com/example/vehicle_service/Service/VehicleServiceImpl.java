@@ -3,7 +3,7 @@ package com.example.vehicle_service.Service;
 import com.example.vehicle_service.DTO.VehicleResponseDTO;
 import com.example.vehicle_service.DTO.VehicleRequestDTO;
 import com.example.vehicle_service.Model.Vehicle;
-import com.example.vehicle_service.Repository.VehicleRepository;
+import com.example.vehicle_service.Repository.vehicleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class VehicleServiceImpl implements VehicleService {
 
-    private final VehicleRepository.vehicleRepository vehicleRepository;
+    private final vehicleRepository vehicleRepository;
 
     @Override
     public VehicleResponseDTO registerVehicle(VehicleRequestDTO request) {
@@ -22,7 +22,7 @@ public class VehicleServiceImpl implements VehicleService {
                 .make(request.getMake())
                 .model(request.getModel())
                 .licensePlate(request.getLicensePlate())
-                .year(request.getYear())
+                .Manufacturedyear(request.getManufactureyear())
                 .ownerId(request.getOwnerId())
                 .build();
 
@@ -32,11 +32,11 @@ public class VehicleServiceImpl implements VehicleService {
                 saved.getId(),
                 saved.getOwnerId(),
                 saved.getMake(),
+                saved.getManufacturedyear(),
                 saved.getModel(),
-                saved.getLicensePlate(),
-                saved.getYear()
+                saved.getLicensePlate()
         );
-    }
+    };
 
     @Override
     public List<VehicleResponseDTO> getAllVehicles() {
@@ -45,10 +45,11 @@ public class VehicleServiceImpl implements VehicleService {
                         v.getId(),
                         v.getOwnerId(),
                         v.getMake(),
+                        v.getManufacturedyear(),
                         v.getModel(),
-                        v.getLicensePlate(),
-                        v.getYear()
+                        v.getLicensePlate()
                 ))
                 .collect(Collectors.toList());
     }
+
 }

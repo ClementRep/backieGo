@@ -7,9 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class VehicleRepository {
-
     public interface vehicleRepository extends JpaRepository<Vehicle, Long> {
         List<Vehicle> findByOwnerId(String ownerId);
     }
-}
+
