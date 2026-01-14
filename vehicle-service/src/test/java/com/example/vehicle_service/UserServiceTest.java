@@ -13,6 +13,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import java.nio.charset.StandardCharsets;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
@@ -49,11 +51,11 @@ private VehicleController controller;
 
 when(vehicleService.registerVehicle(request)).thenReturn(response);
 
-ResponseEntity<VehicleResponseDTO>result= controller.register(request);
+String result= controller.register(request);
 
-assertEquals(HttpStatus.OK,result.getStatusCode());
+assertEquals(HttpStatus.OK,result.getBytes(StandardCharsets.UTF_8));
 
-assertEquals(response,result.getBody());
+assertEquals(response,result.getBytes());
 
     }
 }

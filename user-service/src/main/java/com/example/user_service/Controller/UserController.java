@@ -8,6 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @Controller
 @RequestMapping("/user")
@@ -18,8 +20,8 @@ public class UserController {
 
 
     @GetMapping("/register")
-    public String showuser(Model model){
-        model.addAttribute("user",new User());
+    public String showuser(Model model) {
+        model.addAttribute("user", new User());
         return "UserRegistration";
     }
 
@@ -30,4 +32,10 @@ public class UserController {
         return "successfully registered";
     }
 
+    @GetMapping("/dashboard")
+    public String dashboard(Model model) {
+        model.addAttribute("users", userService.getalluser());
+        System.out.println("Users: " + userService.getalluser());
+        return "dashboard";
+    }
 }
