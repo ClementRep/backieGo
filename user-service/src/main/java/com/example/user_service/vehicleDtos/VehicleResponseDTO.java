@@ -1,10 +1,12 @@
-package com.example.vehicle_service.DTO;
+package com.example.user_service.vehicleDtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class VehicleResponseDTO {
 
     private Long id;
@@ -15,7 +17,7 @@ public class VehicleResponseDTO {
     private String licensePlate;
     private Integer price;
 
-    // 📍 GPS (for maps & distance)
+    // 📍 GPS coordinates
     private Double latitude;
     private Double longitude;
 

@@ -1,24 +1,121 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta charset="UTF-8"/>
     <title>User Dashboard</title>
+
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.5/dist/leaflet.css"
+          integrity="sha256-sA+e2z0p1l7BgR5CjG6eKCF53F9e+gGVw6r3qXBM9Eo=" crossorigin=""/>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        h1, h2 {
+            text-align: center;
+        }
+        #map {
+            height: 500px;
+            width: 90%;
+            margin: 20px auto;
+            border: 2px solid #333;
+            border-radius: 8px;
+        }
+        table {
+            width: 90%;
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid #333;
+        }
+        th, td {
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+    </style>
 </head>
 <body>
-<h1>User Dashboard</h1>
+
+<h1>Welcome, <span th:text="${user.name}">User</span></h1>
+
+<h2>Your Location & Nearby Vehicles</h2>
+<div id="map"></div>
+
+<h2>Available Vehicles Table</h2>
 <table>
     <thead>
     <tr>
-        <th>ID</th><th>Name</th><th>Email</th><th>Password</th>
+        <th>ID</th>
+        <th>Make</th>
+        <th>Model</th>
+        <th>Year</th>
+        <th>License Plate</th>
+        <th>Price</th>
+        <th>Latitude</th>
+        <th>Longitude</th>
     </tr>
     </thead>
     <tbody>
-    <tr th:each="user : ${users}">
-        <td th:text="${user.id}"></td>
-        <td th:text="${user.name}"></td>
-        <td th:text="${user.email}"></td>
-        <td th:text="${user.password}"></td>
+    <tr th:each="vehicle : ${vehicles}">
+        <td th:text="${vehicle.id}"></td>
+        <td th:text="${vehicle.make}"></td>
+        <td th:text="${vehicle.model}"></td>
+        <td th:text="${vehicle.manufactureYear}"></td>
+        <td th:text="${vehicle.licensePlate}"></td>
+        <td th:text="${vehicle.price}"></td>
+        <td th:text="${vehicle.latitude}"></td>
+        <td th:text="${vehicle.longitude}"></td>
     </tr>
     </tbody>
 </table>
+
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet@1.9.5/dist/leaflet.js"
+        integrity="sha256-pk4t2/kP5r4+W+ezfsQxG4l5O1d5t9OiEOTkz1u1Utk=" crossorigin=""></script>
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+        // User coordinates
+        var userLat = [[${user.latitude}]];
+        var userLng = [[${user.longitude}]];
+
+        // Vehicles array
+        var vehicles = [[${vehicles}]];
+
+        // Initialize map centered on user
+        var map = L.map('map').setView([userLat, userLng], 13);
+
+        // Add OpenStreetMap tiles
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+
+        // Add user marker
+        L.marker([userLat, userLng]).addTo(map)
+            .bindPopup("<b>You are here</b>").openPopup();
+
+        // Add vehicle markers
+        vehicles.forEach(function(vehicle) {
+            if(vehicle.latitude && vehicle.longitude){
+                L.marker([vehicle.latitude, vehicle.longitude])
+                 .addTo(map)
+                 .bindPopup(
+                     "<b>" + vehicle.make + " " + vehicle.model + "</b><br/>" +
+                     "Price: $" + vehicle.price + "<br/>" +
+                     "License: " + vehicle.licensePlate
+                 );
+            }
+        });
+    /*]]>*/
+</script>
+
 </body>
 </html>

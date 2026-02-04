@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vehicle Registration</title>
+
+    <!-- Leaflet CSS for map picker -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.5/dist/leaflet.css"
+          integrity="sha256-sA+e2z0p1l7BgR5CjG6eKCF53F9e+gGVw6r3qXBM9Eo=" crossorigin=""/>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #e9f0f7;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .form-container {
+            max-width: 500px;
+            margin: 20px auto;
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.15);
+            padding: 35px 30px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin: 15px 0 8px;
+            color: #444;
+        }
+
+        input[type="text"], input[type="number"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 15px;
+        }
+
+        #map {
+            height: 300px;
+            margin-top: 15px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            background-color: #007bff;
+            color: #fff;
+            padding: 14px;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 6px;
+            margin-top: 25px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<div class="form-container">
+    <h2>Register a Vehicle</h2>
+
+    <form th:action="@{/vehicles/v1/register}" th:object="${vehicle}" method="post">
+        <label for="make">Make:</label>
+        <input type="text" id="make" th:field="*{make}" required />
+
+        <label for="model">Model:</label>
+        <input type="text" id="model" th:field="*{model}" required />
+
+        <label for="year">Year:</label>
+        <input type="number" id="year" th:field="*{manufactureYear}" required min="1900" max="2100" />
+
+        <label for="price">Price:</label>
+        <input type="number" id="price" th:field="*{price}" required min="0" />
+
+        <label for="map">Select Vehicle Location:</label>
+        <div id="map"></div>
+
+        <!-- Hidden fields for lat/lon -->
+        <input type="hidden" id="latitude" th:field="*{latitude}" name="latitude" />
+        <input type="hidden" id="longitude" th:field="*{longitude}" name="longitude" />
+
+        <button type="submit">Register Vehicle</button>
+    </form>
+</div>
+
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet@1.9.5/dist/leaflet.js"
+        integrity="sha256-pk4t2/kP5r4+W+ezfsQxG4l5O1d5t9OiEOTkz1u1Utk=" crossorigin=""></script>
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+        // Default map view (Johannesburg)
+        var map = L.map('map').setView([-26.2041, 28.0473], 12);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+
+        var marker;
+
+        // When map is clicked, place marker and set hidden lat/lon
+        map.on('click', function(e) {
+            var lat = e.latlng.lat;
+            var lng = e.latlng.lng;
+
+            if(marker) {
+                map.removeLayer(marker);
+            }
+
+            marker = L.marker([lat, lng]).addTo(map)
+                     .bindPopup("Vehicle location").openPopup();
+
+            document.getElementById('latitude').value = lat;
+            document.getElementById('longitude').value = lng;
+        });
+    /*]]>*/
+</script>
+
+</body>
+</html>

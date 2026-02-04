@@ -6,7 +6,6 @@ import com.example.vehicle_service.Model.Vehicle;
 import com.example.vehicle_service.Repository.vehicleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,12 +17,21 @@ public class VehicleServiceImpl implements VehicleService {
 
     @Override
     public VehicleResponseDTO registerVehicle(VehicleRequestDTO request) {
+
         Vehicle vehicle = Vehicle.builder()
                 .make(request.getMake())
                 .model(request.getModel())
                 .licensePlate(request.getLicensePlate())
-                .Manufacturedyear(request.getManufactureyear())
+                .manufactureYear(request.getManufactureYear())
                 .ownerId(request.getOwnerId())
+                .price(request.getPrice())
+
+                // 📍 GPS (CRITICAL)
+                .latitude(request.getLatitude())
+                .longitude(request.getLongitude())
+
+                // 🚗 availability
+                .available(true)
                 .build();
 
         Vehicle saved = vehicleRepository.save(vehicle);
@@ -32,11 +40,16 @@ public class VehicleServiceImpl implements VehicleService {
                 saved.getId(),
                 saved.getOwnerId(),
                 saved.getMake(),
-                saved.getManufacturedyear(),
                 saved.getModel(),
-                saved.getLicensePlate()
+                saved.getManufactureYear(),
+                saved.getLicensePlate(),
+                saved.getPrice(),
+                saved.getLatitude(),
+                saved.getLongitude(),
+                saved.isAvailable()
         );
-    };
+
+    }
 
     @Override
     public List<VehicleResponseDTO> getAllVehicles() {
@@ -45,9 +58,13 @@ public class VehicleServiceImpl implements VehicleService {
                         v.getId(),
                         v.getOwnerId(),
                         v.getMake(),
-                        v.getManufacturedyear(),
                         v.getModel(),
-                        v.getLicensePlate()
+                        v.getManufactureYear(),
+                        v.getLicensePlate(),
+                        v.getPrice(),
+                        v.getLatitude(),
+                        v.getLongitude(),
+                        v.isAvailable()
                 ))
                 .collect(Collectors.toList());
     }

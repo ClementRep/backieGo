@@ -8,11 +8,11 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="vehicle-service" />
-        <module name="Api-Gateway" />
         <module name="user-service" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="Api-Gateway" target="17" />
       <module name="BookingSystem" target="1.8" />
     </bytecodeTargetLevel>
   </component>

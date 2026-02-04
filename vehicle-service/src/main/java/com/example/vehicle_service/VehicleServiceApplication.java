@@ -13,7 +13,6 @@ public class VehicleServiceApplication {
     private VehicleService vehService;
 
 	public static void main(String[] args) {
-
 		SpringApplication.run(VehicleServiceApplication.class, args);
 	}
 }

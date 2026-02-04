@@ -1,24 +1,25 @@
-package com.example.vehicle_service.DTO;
+package com.example.user_service.vehicleDtos;
+
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 @Data
 @AllArgsConstructor
-public class VehicleResponseDTO {
+@NoArgsConstructor
+public class Vehicle {
 
     private Long id;
-    private String ownerId;
     private String make;
     private String model;
-    private Integer manufactureYear;
-    private String licensePlate;
     private Integer price;
 
-    // 📍 GPS (for maps & distance)
+    // GPS
     private Double latitude;
     private Double longitude;
 
-    // 🚗 availability
+    // Availability
     private boolean available;
 }
