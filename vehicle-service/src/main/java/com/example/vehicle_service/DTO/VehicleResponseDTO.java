@@ -11,7 +11,7 @@ public class VehicleResponseDTO {
     private String ownerId;
     private String make;
     private String model;
-    private Integer manufactureYear;
+    private Integer manufactureyear;
     private String licensePlate;
     private Integer price;
 

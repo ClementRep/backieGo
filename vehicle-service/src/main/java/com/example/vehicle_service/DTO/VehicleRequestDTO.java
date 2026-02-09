@@ -18,7 +18,7 @@ public class VehicleRequestDTO {
     private String model;
 
     @NotBlank
-    private Integer manufactureYear;
+    private Integer manufactureyear;
 
     @NotBlank
     private String licensePlate;

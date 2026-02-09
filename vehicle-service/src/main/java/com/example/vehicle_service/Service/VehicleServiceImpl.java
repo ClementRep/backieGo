@@ -22,7 +22,7 @@ public class VehicleServiceImpl implements VehicleService {
                 .make(request.getMake())
                 .model(request.getModel())
                 .licensePlate(request.getLicensePlate())
-                .manufactureYear(request.getManufactureYear())
+                .manufactureyear(request.getManufactureyear())
                 .ownerId(request.getOwnerId())
                 .price(request.getPrice())
 
@@ -41,7 +41,7 @@ public class VehicleServiceImpl implements VehicleService {
                 saved.getOwnerId(),
                 saved.getMake(),
                 saved.getModel(),
-                saved.getManufactureYear(),
+                saved.getManufactureyear(),
                 saved.getLicensePlate(),
                 saved.getPrice(),
                 saved.getLatitude(),
@@ -59,7 +59,7 @@ public class VehicleServiceImpl implements VehicleService {
                         v.getOwnerId(),
                         v.getMake(),
                         v.getModel(),
-                        v.getManufactureYear(),
+                        v.getManufactureyear(),
                         v.getLicensePlate(),
                         v.getPrice(),
                         v.getLatitude(),

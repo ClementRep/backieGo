@@ -18,11 +18,10 @@ public class VehicleController {
 
     private final VehicleService vehicleService;
 
-    // Show registration form
     @GetMapping("/register")
     public String showForm(Model model) {
         model.addAttribute("vehicle", new VehicleRequestDTO());
-        return "vehicle_registration"; // Thymeleaf HTML form
+        return "vehicle_registration";
     }
 
     // Handle form submission from Thymeleaf

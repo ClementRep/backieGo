@@ -28,7 +28,7 @@ public class Vehicle {
     private String model;
 
     @NotNull
-    private Integer manufactureYear;
+    private Integer manufactureyear;
 
     @NotBlank
     @Column(unique = true)
